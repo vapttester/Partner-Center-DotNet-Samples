@@ -112,7 +112,7 @@ public class Program
         Console.WriteLine("\nPlease choose an option:");
 
         Console.WriteLine("1. Fetch customer agreement records");
-        Console.WriteLine("2. Update customer agreement records");
+        Console.WriteLine("2. Update customer agreement records (Deprecated)");
         Console.WriteLine("3. Exit\n");
 
     SelectOption:
@@ -135,7 +135,7 @@ public class Program
         var result = input switch
         {
             1 => await serviceProvider.GetRequiredService<ICustomerProvider>().FetchAndSaveCustomerAgreementRecords(),
-            2 => await serviceProvider.GetRequiredService<ICustomerProvider>().UpdateCustomerAgreementRecords(partnerTenantId),
+            2 => DisplayDeprecationMessageAndReturnFalse(),
             _ => throw new InvalidOperationException("Invalid input")
         };
 
@@ -144,5 +144,11 @@ public class Program
         Console.WriteLine("========================================================");
 
         goto ShowOptions;
+    }
+
+    private static bool DisplayDeprecationMessageAndReturnFalse()
+    {
+        Console.WriteLine($"Post May 7, 2025, the MCA bulk attestation tool can no longer be used to perform bulk attestations and will have a read-only capability");
+        return false;
     }
 }
