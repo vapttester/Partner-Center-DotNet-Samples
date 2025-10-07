@@ -11,8 +11,6 @@ namespace MCARefreshBulkAttestationCLITool.Interfaces
     public interface ICustomerProvider
     {
         Task<bool> FetchAndSaveCustomerAgreementRecords();
-
-        Task<bool> UpdateCustomerAgreementRecords(string partnerTenantId);
     }
 
     public interface ICustomerAgreementsClient
@@ -21,8 +19,5 @@ namespace MCARefreshBulkAttestationCLITool.Interfaces
 
         [Get("/v1/partners/customeragreementrecords")]
         Task<FetchCustomerAgreementRecordResponse> GetCustomerAgreementRecords([AliasAs("continuation_token")][Query] string? continuationToken, CancellationToken cancellationToken = default);
-
-        [Post("/v1/CreateBulkReAttestation")]
-        Task CreateBulkReAttestation(IEnumerable<ReAttestationRequest> request, CancellationToken cancellationToken = default);
     }
 }
